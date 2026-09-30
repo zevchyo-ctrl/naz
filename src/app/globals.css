@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* Short viewports (landscape phones, ~<=520px tall) — keeps hero/detail above the fold */
+@custom-variant short (@media (max-height: 520px));
+
+:root {
+  /* Defaults — overridden at runtime by the admin theme (see lib/theme.ts) */
+  --primary-color: #ffd21f;
+  --secondary-color: #ffb800;
+  --accent-color: #e50914;
+  --background-color: #050505;
+  --card-color: #0b0b0f;
+  --text-color: #ffffff;
+  --text-secondary-color: #a1a1aa;
+  --button-color: #ffd21f;
+  --button-hover-color: #ffb800;
+  --border-color: #26262b;
+  --header-color: #050505;
+  --footer-color: #040406;
+  --nav-color: transparent;
+  --hero-color: transparent;
+  --movie-section-color: transparent;
+  --series-section-color: transparent;
+  --movie-card-color: #0b0b0f;
+  --series-card-color: #0b0b0f;
+  --search-color: #ffffff0f;
+  --login-color: #0b0b0f;
+  --register-color: #0b0b0f;
+  --profile-color: #0b0b0f;
+  --red-dark: #7a0509;
+}
+
+/* Theme-driven primary button */
+.naz-btn {
+  background: linear-gradient(90deg, var(--button-color), var(--secondary-color));
+  transition: background 0.2s ease, filter 0.2s ease;
+}
+.naz-btn:hover {
+  background: var(--button-hover-color);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  font-family: "Cairo", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Hide scrollbars on horizontal carousels while keeping smooth scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom luxury scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Liquid Glass & Cinema Glow Utilities */
+.liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    color-mix(in srgb, var(--primary-color) 4%, transparent) 50%,
+    color-mix(in srgb, var(--background-color) 82%, transparent) 100%
+  );
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-color);
+}
+
+.gold-glow {
+  box-shadow: 0 0 30px color-mix(in srgb, var(--primary-color) 25%, transparent);
+}
+
+.red-glow {
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent-color) 30%, transparent);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Keep the whole player (incl. bottom controls / fullscreen button) on screen */
+.naz-player-canvas {
+  max-height: max(200px, calc(100dvh - 17rem));
+}
+
+/* Video player fullscreen: fill the whole screen, keep existing controls */
+.naz-player:fullscreen,
+.naz-player:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  border-radius: 0;
+  border: 0;
+  background: #000;
+}
+.naz-player:fullscreen .naz-player-canvas,
+.naz-player:-webkit-full-screen .naz-player-canvas {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: auto;
+}
